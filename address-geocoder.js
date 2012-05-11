@@ -11,6 +11,8 @@ jQuery(document).ready(function($) {
 	  geocoder = new google.maps.Geocoder();
 	  var latlng = new google.maps.LatLng(-34.397, 150.644);
 	  var myOptions = {
+		backgroundColor: '#EAEAEA',
+		mapTypeControl: false,
 	    zoom: 11,
 	    center: latlng,
 	    mapTypeId: google.maps.MapTypeId.ROADMAP

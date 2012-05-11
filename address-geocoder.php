@@ -3,7 +3,7 @@
 Plugin Name: Address Geocoder
 Plugin URI: http://martyspellerberg.com/address-geocode-wordpress-plugin/
 Description: A simple plugin for saving location data with posts. Conveniently converts addresses to lat/lng from the Post/Page Edit screen.
-Version: 0.0
+Version: 0.1
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
 License: GPLv2+
@@ -27,10 +27,18 @@ function martygeocoder_setup() {
 	global $post;
 	$address = get_post_meta($post->ID,'martygeocoderaddress',TRUE);
 	$latlng = get_post_meta($post->ID,'martygeocoderlatlng',TRUE); ?>
+
+	<div style="overflow: hidden; width: 100%;">
+	<div id="geocodepreview" style="float: right; width: 200px; height: 140px; border: 1px solid #DFDFDF;"></div>
+
+	<div style="margin-right: 215px">
 	<p><label for="martygeocoderaddress">Address</label><input type="text" class="widefat" name="martygeocoderaddress" value="<?php if(!empty($address)) echo $address; ?>"/></p>
 	<p><label for="martygeocoderlatlng">Lat/Lng</label><input type="text" class="widefat" name="martygeocoderlatlng" value="<?php if(!empty($latlng)) echo $latlng; ?>"/></p>
 	<p><a id="geocode" class="button">Geocode Address</a></p>
-	<p style="margin-bottom: 0">Preview</p><div id="geocodepreview" style="width: 200px; height: 200px; border: 1px solid #999; background: #ccc"></div>
+
+
+	</div>
+	</div>
 	<?php echo '<input type="hidden" name="martygeocoder_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
 }
 
