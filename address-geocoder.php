@@ -18,7 +18,10 @@ function martygeocoder_admin_init() {
 	wp_register_script( 'marty_geocode_js', plugins_url('/address-geocoder.js', __FILE__) );
 	wp_enqueue_script( 'marty_geocode_js' );
 
-	add_meta_box('martygeocoder', 'Geocoder', 'martygeocoder_setup', 'post', 'normal', 'high');
+	foreach (array('post','page') as $type) {
+		add_meta_box('martygeocoder', 'Geocoder', 'martygeocoder_setup', $type, 'normal', 'high');
+	}
+	
 	add_action('save_post','martygeocoder_save');
 
 }
