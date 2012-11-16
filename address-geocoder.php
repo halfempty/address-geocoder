@@ -3,7 +3,7 @@
 Plugin Name: Address Geocoder
 Plugin URI: http://martyspellerberg.com/address-geocode-wordpress-plugin/
 Description: A simple plugin for saving location data with posts. Conveniently converts addresses to lat/lng from the Post/Page Edit screen.
-Version: 0.1
+Version: 0.2
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
 License: GPLv2+
@@ -18,13 +18,21 @@ function martygeocoder_admin_init() {
 	wp_register_script( 'marty_geocode_js', plugins_url('/address-geocoder.js', __FILE__) );
 	wp_enqueue_script( 'marty_geocode_js' );
 
-	foreach (array('post','page') as $type) {
-		add_meta_box('martygeocoder', 'Geocoder', 'martygeocoder_setup', $type, 'normal', 'high');
-	}
-	
 	add_action('save_post','martygeocoder_save');
 
 }
+
+add_action( 'add_meta_boxes', 'my_add_custom_box' );
+
+function my_add_custom_box($postType) {
+
+	$types=get_post_types('','names'); 
+
+	if(in_array($postType, $types)){
+		add_meta_box('martygeocoder', 'Geocoder', 'martygeocoder_setup', $postType, 'normal', 'high');
+	}
+}
+
 
 function martygeocoder_setup() {
 	global $post;
