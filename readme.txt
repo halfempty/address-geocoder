@@ -41,6 +41,9 @@ That’s it!
 
 == Changelog ==
 
+= 0.3 =
+* Fixes a bug which caused data to not save
+
 = 0.2 =
 * Added support for all post types
 
