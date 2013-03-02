@@ -9,6 +9,16 @@ Author URI: http://martyspellerberg.com
 License: GPLv2+
 */
 
+
+// Plugin Options 
+
+require_once( dirname(__FILE__) . '/options.php' );
+
+//require_once ( $optionsurl );
+
+
+// Metabox
+
 add_action( 'load-post.php', 'martygeocoder_admin_init' );
 add_action( 'load-post-new.php', 'martygeocoder_admin_init' );
 
@@ -27,14 +37,20 @@ function martygeocoder_addboxes($postType) {
 
 	$types=get_post_types('','names'); 
 
-	if(in_array($postType, $types)){
+	$alwaysexclude = array('attachment','revision','nav_menu_item');
+ 	$options = get_option( 'address_geocoder_options' ); 
+	
+
+	if(in_array($postType, $types) && !in_array($postType, $alwaysexclude) && $options[$postType] != 'exclude' ){
+
+
 		add_meta_box('martygeocoder', 'Geocoder', 'martygeocoder_setup', $postType, 'normal','high');
 	}
 }
 
-function martygeocoder_setup( $object, $box ) { ?>
-
-	<?php wp_nonce_field( basename( __FILE__ ), 'martygeocoder_nonce' ); ?>
+function martygeocoder_setup( $object, $box ) { 
+		
+	wp_nonce_field( basename( __FILE__ ), 'martygeocoder_nonce' ); ?>
 
 	<div style="overflow: hidden; width: 100%;">
 	<div id="geocodepreview" style="float: right; width: 200px; height: 140px; border: 1px solid #DFDFDF;"></div>
@@ -100,6 +116,8 @@ function martygeocoder_save( $post_id, $post ) {
 
 
 }
+
+// Front end
 
 function get_geocode_latlng($postid) {
 	$martygeocoder = get_post_meta($postid, 'martygeocoderlatlng', true);	
