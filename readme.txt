@@ -2,7 +2,7 @@
 Contributors: MartySpellerberg
 Tags: geocode, location, maps, plugin
 Requires at least: 3.3.1
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -40,6 +40,9 @@ That’s it!
 1. The Address Geocoder metabox on the Post/Page Edit screen
 
 == Changelog ==
+
+= 0.4 =
+* Added settings screen, for disabling metabox by post type
 
 = 0.3 =
 * Fixes a bug which caused data to not save

@@ -3,7 +3,7 @@
 Plugin Name: Address Geocoder
 Plugin URI: http://martyspellerberg.com/address-geocode-wordpress-plugin/
 Description: A simple plugin for saving location data with posts. Conveniently converts addresses to lat/lng from the Post/Page Edit screen.
-Version: 0.3
+Version: 0.4
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
 License: GPLv2+
@@ -13,9 +13,6 @@ License: GPLv2+
 // Plugin Options 
 
 require_once( dirname(__FILE__) . '/options.php' );
-
-//require_once ( $optionsurl );
-
 
 // Metabox
 
