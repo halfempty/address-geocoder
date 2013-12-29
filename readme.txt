@@ -2,7 +2,7 @@
 Contributors: MartySpellerberg
 Tags: geocode, location, maps, plugin
 Requires at least: 3.3.1
-Tested up to: 3.5.1
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -25,11 +25,19 @@ Uses the Google Maps JavaScript API V.3.
 
 The Lat/Lng field will populate with a lat/lng object and a map will appear in the preview box, with a marker on the location.
 
-Access your data in the loop using the functions `get_geocode_latlng()` and `get_geocode_address()`, with the post ID passed as a parameter. Such as, for Lat/Lng:
+Access your data in the loop using the following functions, with the post ID passed as a parameter. For the full Google-style Lat/Lng, in brackets:
 
 `<?php echo get_geocode_latlng($post->ID); ?>`
  
-And for Address:
+For the Lat only:
+
+`<?php echo get_geocode_lat($post->ID); ?>`
+
+For the Lng only:
+
+`<?php echo get_geocode_lng($post->ID); ?>`
+
+And for the Address:
 
 `<?php echo get_geocode_address($post->ID); ?>`
 
@@ -40,6 +48,9 @@ That’s it!
 1. The Address Geocoder metabox on the Post/Page Edit screen
 
 == Changelog ==
+
+= 0.5 =
+* Added `get_geocode_lat()` and `get_geocode_lng()` functions
 
 = 0.4 =
 * Added settings screen, for disabling metabox by post type
