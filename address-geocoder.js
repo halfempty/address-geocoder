@@ -1,45 +1,46 @@
-var mapcanvas = "geocodepreview";
+(function($) {
 
-jQuery(document).ready(function($) {
+  $(function() {
 
-	jQuery.fn.codeAddress = function () {
+    $.fn.codeAddress = function () {
 
-		var geocoder;
-		var map;
+      var geocoder;
+      var map;
 
+      geocoder = new google.maps.Geocoder();
+      var latlng = new google.maps.LatLng(-34.397, 150.644);
+      var myOptions = {
+        backgroundColor: '#EAEAEA',
+        mapTypeControl: false,
+        zoom: 11,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
 
-	  geocoder = new google.maps.Geocoder();
-	  var latlng = new google.maps.LatLng(-34.397, 150.644);
-	  var myOptions = {
-		backgroundColor: '#EAEAEA',
-		mapTypeControl: false,
-	    zoom: 11,
-	    center: latlng,
-	    mapTypeId: google.maps.MapTypeId.ROADMAP
-	  }
-	  map = new google.maps.Map(document.getElementById(mapcanvas), myOptions);
+      map = new google.maps.Map(document.getElementById('geocodepreview'), myOptions);
 
+      var address = $('input[name="martygeocoderaddress"]').val();
 
-	  var address = $('input[name="martygeocoderaddress"]').attr('value');;
+      geocoder.geocode( { 'address': address }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location
+          });
 
-	  geocoder.geocode( { 'address': address}, function(results, status) {
-	    if (status == google.maps.GeocoderStatus.OK) {
-	      map.setCenter(results[0].geometry.location);
-	      var marker = new google.maps.Marker({
-	          map: map, 
-	          position: results[0].geometry.location
-	      });
-			$('input[name="martygeocoderlatlng"]').attr('value',results[0].geometry.location);
-	    } else {
-	      alert("Geocode was not successful for the following reason: " + status);
-	    }
-	  });
-	}
+          $('input[name="martygeocoderlatlng"]').attr('value', results[0].geometry.location);
+        }
+        else {
+          alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
+    }
 
-	$('#geocode').bind('click', function() {
-		$(document).codeAddress();
-	});
+    $(document).on('click', '#geocode', function() {
+      $(document).codeAddress();
+    });
 
-	
+  });
 
-});
+})(jQuery);
