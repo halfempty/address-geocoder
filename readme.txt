@@ -1,8 +1,8 @@
 === Address Geocoder ===
 Contributors: MartySpellerberg
 Tags: geocode, location, maps, plugin
-Requires at least: 3.3.1
-Tested up to: 3.8
+Requires at least: 3.6
+Tested up to: 3.8.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,8 +20,8 @@ Uses the Google Maps JavaScript API V.3.
 * Download the plugin;
 * Unzip and upload it to your /plugins directory;
 * Activate the plugin from the Dashboard;
-* You should now find a metabox labeled “Geocoder” on your Post and Page Edit screens. Enter an address in the address field (this can be an exact address or the name of a famous place — anything Google will understand);
-* Press the “Geocode Address” button;
+* You should now find a metabox labeled "Geocoder" on your Post and Page Edit screens. Enter an address in the address field (this can be an exact address or the name of a famous place — anything Google will understand);
+* Press the "Geocode Address" button;
 
 The Lat/Lng field will populate with a lat/lng object and a map will appear in the preview box, with a marker on the location.
 

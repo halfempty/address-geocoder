@@ -86,14 +86,11 @@ function martygeocoder_save( $post_id, $post ) {
 
 	$address_value = get_post_meta( $post_id, $address_key, true );
 
-	if ( $new_address_value && '' == $address_value )
-		add_post_meta( $post_id, $address_key, $new_address_value, true );
-
-	elseif ( $new_address_value && $new_address_value != $address_value )
+	if ( $new_address_value )
 		update_post_meta( $post_id, $address_key, $new_address_value );
 
 	elseif ( '' == $new_address_value && $address_value )
-		delete_post_meta( $post_id, $address_key, $address_value );
+		delete_post_meta( $post_id, $address_key );
 
 
 	// Latlng
@@ -102,14 +99,11 @@ function martygeocoder_save( $post_id, $post ) {
 
 	$latlng_value = get_post_meta( $post_id, $latlng_key, true );
 
-	if ( $new_latlng_value && '' == $latlng_value )
-		add_post_meta( $post_id, $latlng_key, $new_latlng_value, true );
-
-	elseif ( $new_latlng_value && $new_latlng_value != $latlng_value )
+	if ( $new_latlng_value )
 		update_post_meta( $post_id, $latlng_key, $new_latlng_value );
 
 	elseif ( '' == $new_latlng_value && $latlng_value )
-		delete_post_meta( $post_id, $latlng_key, $latlng_value );
+		delete_post_meta( $post_id, $latlng_key );
 
 
 }
