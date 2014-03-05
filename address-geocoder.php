@@ -81,16 +81,16 @@ class Address_Geocoder
 
         wp_nonce_field( 'save_latlng', 'geocoder_nonce' );
 ?>
-        <div style="overflow: hidden; width: 100%;">
-            <div id="geocodepreview" style="float: right; width: 200px; height: 140px; border: 1px solid #DFDFDF;"></div>
-            <div style="margin-right: 215px">
+        <div style="overflow:hidden; width:100%">
+            <div id="geocodepreview" style="float:right; width:240px; height:180px; border:1px solid #DFDFDF"></div>
+            <div style="margin-right:215px">
                 <p>
                     <label for="martygeocoderaddress">Address</label><br />
-                    <input class="widefat" type="text" name="martygeocoderaddress" id="martygeocoderaddress" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderaddress', true ) ); ?>" size="30" />
+                    <input style="width:300px" type="text" name="martygeocoderaddress" id="martygeocoderaddress" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderaddress', true ) ); ?>" />
                 </p>
                 <p>
                     <label for="martygeocoderlatlng">Lat/Lng</label><br />
-                    <input class="widefat" type="text" name="martygeocoderlatlng" id="martygeocoderlatlng" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderlatlng', true ) ); ?>" size="30" />
+                    <input style="width:300px" type="text" name="martygeocoderlatlng" id="martygeocoderlatlng" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderlatlng', true ) ); ?>" />
                 </p>
                 <p>
                     <a id="geocode" class="button">Geocode Address</a>
