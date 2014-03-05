@@ -1,5 +1,5 @@
 === Address Geocoder ===
-Contributors: MartySpellerberg
+Contributors: martyspellerberg, mgibbs189
 Tags: geocode, location, maps, plugin
 Requires at least: 3.6
 Tested up to: 3.8.1
@@ -48,6 +48,9 @@ That’s it!
 1. The Address Geocoder metabox on the Post/Page Edit screen
 
 == Changelog ==
+
+= 0.6 =
+* Rewrite using OOP best practices (props @mgibbs189)
 
 = 0.5 =
 * Added `get_geocode_lat()` and `get_geocode_lng()` functions
