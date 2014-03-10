@@ -13,7 +13,7 @@ License: GPLv2+
 class Address_Geocoder
 {
 
-    public $valid_post_types = array();
+    public $available_post_types = array();
     public $options;
 
 
@@ -31,7 +31,7 @@ class Address_Geocoder
         // Class properties
         $post_types = get_post_types();
         $excluded = array( 'attachment', 'revision', 'nav_menu_item' );
-        $this->valid_post_types = array_diff( $post_types, $excluded );
+        $this->available_post_types = array_diff( $post_types, $excluded );
         $this->options = get_option( 'address_geocoder_options' );
 
         // Actions
@@ -56,11 +56,39 @@ class Address_Geocoder
      * Enqueue admin scripts
      */
     function admin_enqueue_scripts() {
-        wp_register_script( 'googlemaps', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBUUGSskO3GEjKLHjT4EIV-H2_Xs3MfPiA&sensor=false' );
-        wp_register_script( 'marty_geocode_js', plugins_url('/address-geocoder.js', __FILE__) );
 
-        wp_enqueue_script( 'googlemaps' );
-        wp_enqueue_script( 'marty_geocode_js' );
+        // Load scripts only when necessary
+        if ( $this->is_geocoder_needed() ) {
+            wp_register_script( 'googlemaps', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBUUGSskO3GEjKLHjT4EIV-H2_Xs3MfPiA&sensor=false' );
+            wp_register_script( 'marty_geocode_js', plugins_url( '/address-geocoder.js', __FILE__ ) );
+
+            wp_enqueue_script( 'googlemaps' );
+            wp_enqueue_script( 'marty_geocode_js' );
+        }
+    }
+
+
+    /**
+     * Determine whether the geocoder metabox appears on the current page
+     */
+    function is_geocoder_needed() {
+
+        $pagenow = isset( $GLOBALS['pagenow'] ) ? $GLOBALS['pagenow'] : '';
+
+        if ( 'post.php' == $pagenow ) {
+            $post_type = get_post_type( $_GET['post'] );
+        }
+        elseif ( 'post-new.php' == $pagenow ) {
+            $post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : 'post';
+        }
+
+        if ( !empty( $post_type ) && !empty( $this->options ) ) {
+            if ( in_array( $post_type, $this->available_post_types ) && 'exclude' != $this->options[ $post_type ] ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
@@ -68,7 +96,7 @@ class Address_Geocoder
      * Add the "Geocoder" meta box to the appropriate pages
      */
     function add_meta_boxes( $post_type ) {
-        if ( in_array( $post_type, $this->valid_post_types ) && 'exclude' != $this->options[ $post_type ] ) {
+        if ( in_array( $post_type, $this->available_post_types ) && 'exclude' != $this->options[ $post_type ] ) {
             add_meta_box( 'martygeocoder', 'Geocoder', array( $this, 'meta_box_html' ), $post_type, 'normal', 'high' );
         }
     }
@@ -109,20 +137,15 @@ class Address_Geocoder
         if ( ! isset( $_REQUEST['settings-updated'] ) ) {
             $_REQUEST['settings-updated'] = false;
         }
-
-        if ( !current_user_can( 'manage_options' ) )  {
-            wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-        }
 ?>
 
 <div class="wrap">    
     <h2><?php _e( 'Address Geocoder' ); ?></h2>
     <form method="post" action="options.php">
         <?php settings_fields( 'address_geocoder_options' ); ?>
-        <?php $options = get_option( 'address_geocoder_options' ); ?>
         <h3>Show Metabox on Post Types</h3>
 
-        <?php foreach ( $this->valid_post_types as $post_type ) : ?>
+        <?php foreach ( $this->available_post_types as $post_type ) : ?>
         <?php $checked = ( 'exclude' != $options[ $post_type ] ) ? ' checked="checked"' : ''; ?>
         <p>
             <input type="checkbox" id="geocoder-type-<?php echo $post_type; ?>" name="address_geocoder_options[<?php echo $post_type ?>]" value="enabled" <?php echo $checked; ?> />
@@ -144,7 +167,7 @@ class Address_Geocoder
      * Validate the options
      */
     function validate_options( $input ) {
-        foreach ( $this->valid_post_types as $post_type ) {
+        foreach ( $this->available_post_types as $post_type ) {
             if ( !isset( $input[ $post_type ] ) ) {
                 $input[ $post_type ] = 'exclude';
             }
