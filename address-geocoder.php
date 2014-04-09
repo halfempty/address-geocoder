@@ -146,7 +146,7 @@ class Address_Geocoder
         <h3>Show Metabox on Post Types</h3>
 
         <?php foreach ( $this->available_post_types as $post_type ) : ?>
-        <?php $checked = ( 'exclude' != $options[ $post_type ] ) ? ' checked="checked"' : ''; ?>
+        <?php $checked = ( 'exclude' != $this->options[ $post_type ] ) ? ' checked="checked"' : ''; ?>
         <p>
             <input type="checkbox" id="geocoder-type-<?php echo $post_type; ?>" name="address_geocoder_options[<?php echo $post_type ?>]" value="enabled" <?php echo $checked; ?> />
             <label class="description" for="geocoder-type-<?php echo $post_type; ?>"><?php echo $post_type; ?></label> 
