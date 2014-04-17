@@ -7,45 +7,45 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A simple WordPress plugin for saving location data with Posts and Pages. Conveniently converts addresses to lat/lng from the Edit screen.
+Add location coordinates to your post types.
 
 == Description ==
 
-Storing addresses as lat/lng (rather than geocoding each time a user requests a page) decreases load time. This plug-in makes it easy for content managers to generate lat/lng, which is stored with the post as a custom field that can be accessed as part of the loop.
+The Address Geocoder plugin lets you attach coordinates to your posts, pages, and custom post types. On your edit screens, simply enter an address into the metabox and hit "Geocode".
 
-Uses the Google Maps JavaScript API V.3.
+This plugin uses Google Maps API v3 to translate an address to lat/lng coordinates.
 
 == Installation ==
 
-* Download the plugin;
-* Unzip and upload it to your /plugins directory;
-* Activate the plugin from the Dashboard;
-* You should now find a metabox labeled "Geocoder" on your Post and Page Edit screens. Enter an address in the address field (this can be an exact address or the name of a famous place — anything Google will understand);
-* Press the "Geocode Address" button;
+1. Activate the plugin
+2. Go to Settings > Address Geocoder to choose the desired post types
+3. Done! You'll see a "Geocoder" meta box on your edit screens.
 
-The Lat/Lng field will populate with a lat/lng object and a map will appear in the preview box, with a marker on the location.
+== Fequently Asked Questions ==
 
-Access your data in the loop using the following functions, with the post ID passed as a parameter. For the full Google-style Lat/Lng, in brackets:
+= How do I retrieve the coordinates? =
 
-`<?php echo get_geocode_latlng($post->ID); ?>`
+Access your data in the loop using the following functions, with the post ID passed as a parameter. For the full coordinates (in brackets):
+
+`<?php echo get_geocode_latlng( $post->ID ); ?>`
  
-For the Lat only:
+For the Latitude:
 
-`<?php echo get_geocode_lat($post->ID); ?>`
+`<?php echo get_geocode_lat( $post->ID ); ?>`
 
-For the Lng only:
+For the Longitude:
 
-`<?php echo get_geocode_lng($post->ID); ?>`
+`<?php echo get_geocode_lng( $post->ID ); ?>`
 
-And for the Address:
+For the Address:
 
-`<?php echo get_geocode_address($post->ID); ?>`
-
-That’s it!
+`<?php echo get_geocode_address( $post->ID ); ?>`
 
 == Screenshots ==
 
-1. The Address Geocoder metabox on the Post/Page Edit screen
+1. The meta box before clicking "Geocode"
+2. The meta box after clicking "Geocode"
+3. The settings page (choose available post types)
 
 == Changelog ==
 
