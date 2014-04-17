@@ -1,8 +1,8 @@
 === Address Geocoder ===
 Contributors: martyspellerberg, mgibbs189
-Tags: geocode, location, maps, plugin
+Tags: geocode, location, latitude, longitude, coordinates, google maps, maps
 Requires at least: 3.6
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,10 @@ That’s it!
 1. The Address Geocoder metabox on the Post/Page Edit screen
 
 == Changelog ==
+
+= 0.7 =
+* Bugfix for settings page
+* Ensured WP 3.9 compatibility
 
 = 0.6 =
 * Rewrite using OOP best practices (props @mgibbs189)

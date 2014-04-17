@@ -3,7 +3,7 @@
 Plugin Name: Address Geocoder
 Plugin URI: http://martyspellerberg.com/address-geocode-wordpress-plugin/
 Description: A simple plugin for saving location data with posts. Conveniently converts addresses to lat/lng from the Post/Page Edit screen.
-Version: 0.6
+Version: 0.7
 Contributors: martyspellerberg, mgibbs189
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
@@ -59,7 +59,7 @@ class Address_Geocoder
 
         // Load scripts only when necessary
         if ( $this->is_geocoder_needed() ) {
-            wp_register_script( 'googlemaps', 'http://maps.googleapis.com/maps/api/js?key=AIzaSyBUUGSskO3GEjKLHjT4EIV-H2_Xs3MfPiA&sensor=false' );
+            wp_register_script( 'googlemaps', '//maps.googleapis.com/maps/api/js?key=AIzaSyBUUGSskO3GEjKLHjT4EIV-H2_Xs3MfPiA&sensor=false' );
             wp_register_script( 'marty_geocode_js', plugins_url( '/address-geocoder.js', __FILE__ ) );
 
             wp_enqueue_script( 'googlemaps' );
@@ -145,8 +145,8 @@ class Address_Geocoder
         <?php settings_fields( 'address_geocoder_options' ); ?>
         <h3>Show Metabox on Post Types</h3>
 
-        <?php foreach ( $this->available_post_types as $post_type ) : ?>
-        <?php $checked = ( 'exclude' != $options[ $post_type ] ) ? ' checked="checked"' : ''; ?>
+        <?php foreach ( $this->options as $post_type => $status ) : ?>
+        <?php $checked = ( 'exclude' != $status ) ? ' checked="checked"' : ''; ?>
         <p>
             <input type="checkbox" id="geocoder-type-<?php echo $post_type; ?>" name="address_geocoder_options[<?php echo $post_type ?>]" value="enabled" <?php echo $checked; ?> />
             <label class="description" for="geocoder-type-<?php echo $post_type; ?>"><?php echo $post_type; ?></label> 
