@@ -49,6 +49,9 @@ For the Address:
 
 == Changelog ==
 
+= 0.8 =
+* Bugfix for settings page
+
 = 0.7 =
 * Bugfix for settings page
 * Ensured WP 3.9 compatibility
