@@ -33,6 +33,11 @@ class Address_Geocoder
         $excluded = array( 'attachment', 'revision', 'nav_menu_item' );
         $this->available_post_types = array_diff( $post_types, $excluded );
         $this->options = get_option( 'address_geocoder_options' );
+        
+        // Set some default options if none are already set
+        if( !$this->options ) {
+            $this->options = $this->available_post_types;
+        }
 
         // Actions
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
