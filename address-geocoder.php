@@ -162,7 +162,7 @@ class Address_Geocoder
 
         <h3>Google Maps API Key</h3>
 
-		<p>A Google Maps API Key is required for geocoding to work. <a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">Instructions for obtaining a key.</a></p>
+		<p>Address Geocoder requires a Google Maps API Key to work. You can get a free API Key here: <a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">Instructions for obtaining a key.</a></p>
 
 		<?php $apikey = $this->options['apikey']; ?>
 
