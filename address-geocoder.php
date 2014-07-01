@@ -3,7 +3,7 @@
 Plugin Name: Address Geocoder
 Plugin URI: http://martyspellerberg.com/address-geocode-wordpress-plugin/
 Description: A simple plugin for saving location data with posts. Conveniently converts addresses to lat/lng from the Post/Page Edit screen.
-Version: 0.8
+Version: 0.9
 Contributors: martyspellerberg, mgibbs189
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
@@ -64,11 +64,19 @@ class Address_Geocoder
 
         // Load scripts only when necessary
         if ( $this->is_geocoder_needed() ) {
-            wp_register_script( 'googlemaps', '//maps.googleapis.com/maps/api/js?key=AIzaSyBUUGSskO3GEjKLHjT4EIV-H2_Xs3MfPiA&sensor=false' );
-            wp_register_script( 'marty_geocode_js', plugins_url( '/address-geocoder.js', __FILE__ ) );
 
-            wp_enqueue_script( 'googlemaps' );
-            wp_enqueue_script( 'marty_geocode_js' );
+			$address_geocoder_options = get_option('address_geocoder_options');
+			$apikey = $address_geocoder_options['apikey'];
+
+			if ( $apikey && $apikey != '' ):
+				$mapsapi = '//maps.googleapis.com/maps/api/js?key=' . $apikey. '&sensor=false';
+				wp_register_script( 'googlemaps', $mapsapi );
+				wp_register_script( 'marty_geocode_js', plugins_url( '/address-geocoder.js', __FILE__ ) );
+
+				wp_enqueue_script( 'googlemaps' );
+				wp_enqueue_script( 'marty_geocode_js' );
+			endif;
+
         }
     }
 
@@ -96,7 +104,6 @@ class Address_Geocoder
         return false;
     }
 
-
     /**
      * Add the "Geocoder" meta box to the appropriate pages
      */
@@ -113,25 +120,29 @@ class Address_Geocoder
     function meta_box_html( $object, $box ) {
 
         wp_nonce_field( 'save_latlng', 'geocoder_nonce' );
-?>
-        <div style="overflow:hidden; width:100%">
-            <div id="geocodepreview" style="float:right; width:240px; height:180px; border:1px solid #DFDFDF"></div>
-            <div style="margin-right:215px">
-                <p>
-                    <label for="martygeocoderaddress">Address</label><br />
-                    <input style="width:300px" type="text" name="martygeocoderaddress" id="martygeocoderaddress" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderaddress', true ) ); ?>" />
-                </p>
-                <p>
-                    <label for="martygeocoderlatlng">Lat/Lng</label><br />
-                    <input style="width:300px" type="text" name="martygeocoderlatlng" id="martygeocoderlatlng" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderlatlng', true ) ); ?>" />
-                </p>
-                <p>
-                    <a id="geocode" class="button">Geocode Address</a>
-                </p>
-            </div>
-        </div>
-<?php
-    }
+		$address_geocoder_options = get_option('address_geocoder_options');
+		$apikey = $address_geocoder_options['apikey'];
+		if ( $apikey && $apikey != '' ): ?>
+	        <div style="overflow:hidden; width:100%">
+	            <div id="geocodepreview" style="float:right; width:240px; height:180px; border:1px solid #DFDFDF"></div>
+	            <div style="margin-right:260px">
+	                <p>
+	                    <label for="martygeocoderaddress">Address</label><br />
+	                    <input class="widefat" type="text" name="martygeocoderaddress" id="martygeocoderaddress" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderaddress', true ) ); ?>" />
+	                </p>
+	                <p>
+	                    <label for="martygeocoderlatlng">Lat/Lng</label><br />
+	                    <input class="widefat" type="text" name="martygeocoderlatlng" id="martygeocoderlatlng" value="<?php echo esc_attr( get_post_meta( $object->ID, 'martygeocoderlatlng', true ) ); ?>" />
+	                </p>
+	                <p>
+	                    <a id="geocode" class="button">Geocode Address</a>
+	                </p>
+	            </div>
+	        </div>
+		<?php else : ?>
+			<p>A Google Maps API Key is required. <a href="options-general.php?page=address-geocoder-options">Go to Settings.</a></p>
+		<?php endif;
+	}
 
 
     /**
@@ -148,14 +159,26 @@ class Address_Geocoder
     <h2><?php _e( 'Address Geocoder' ); ?></h2>
     <form method="post" action="options.php">
         <?php settings_fields( 'address_geocoder_options' ); ?>
+
+        <h3>Google Maps API Key</h3>
+
+		<p>Address Geocoder requires a Google Maps API Key to work. You can get a free API Key here: <a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">Instructions for obtaining a key.</a></p>
+
+		<?php $apikey = $this->options['apikey']; ?>
+
+		<p><input type="input" id="geocoder-apikey" name="address_geocoder_options[apikey]" <?php if ( $apikey && $apikey != '' ) echo 'value="' . $apikey . '"'; ?> /><br />
+        <label class="description" for="geocoder-apikey">Your API Key</label></p>
+
         <h3>Show Metabox on Post Types</h3>
 
         <?php foreach ( $this->options as $post_type => $status ) : ?>
-        <?php $checked = ( 'exclude' != $status ) ? ' checked="checked"' : ''; ?>
-        <p>
-            <input type="checkbox" id="geocoder-type-<?php echo $post_type; ?>" name="address_geocoder_options[<?php echo $post_type ?>]" value="enabled" <?php echo $checked; ?> />
-            <label class="description" for="geocoder-type-<?php echo $post_type; ?>"><?php echo $post_type; ?></label> 
-        </p>
+			<?php if ( $post_type != 'apikey') : ?>
+	        	<?php $checked = ( 'exclude' != $status ) ? ' checked="checked"' : ''; ?>
+		        <p>
+		            <input type="checkbox" id="geocoder-type-<?php echo $post_type; ?>" name="address_geocoder_options[<?php echo $post_type ?>]" value="enabled" <?php echo $checked; ?> />
+		            <label class="description" for="geocoder-type-<?php echo $post_type; ?>"><?php echo $post_type; ?></label> 
+		        </p>
+			<?php endif; ?>
         <?php endforeach; ?>
 
         <p class="submit">
