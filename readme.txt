@@ -1,8 +1,8 @@
 === Address Geocoder ===
 Contributors: martyspellerberg, mgibbs189
 Tags: geocode, location, latitude, longitude, coordinates, google maps, maps
-Requires at least: 3.6
-Tested up to: 3.9.1
+Requires at least: 4.0
+Tested up to: 4.4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,7 +28,7 @@ This plugin uses Google Maps API v3 to translate an address to lat/lng coordinat
 Access your data in the loop using the following functions, with the post ID passed as a parameter. For the full coordinates (in brackets):
 
 `<?php echo get_geocode_latlng( $post->ID ); ?>`
- 
+
 For the Latitude:
 
 `<?php echo get_geocode_lat( $post->ID ); ?>`
@@ -48,6 +48,9 @@ For the Address:
 3. The settings page
 
 == Changelog ==
+
+= 0.9.1 =
+* Tested compatibility against WP 4.4
 
 = 0.9 =
 * A Google Maps API key is now required. Go to Settings > Address Geocoder to set your Google Maps API key.

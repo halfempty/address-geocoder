@@ -3,7 +3,7 @@
 Plugin Name: Address Geocoder
 Plugin URI: http://martyspellerberg.com/address-geocode-wordpress-plugin/
 Description: A simple plugin for saving location data with posts. Conveniently converts addresses to lat/lng from the Post/Page Edit screen.
-Version: 0.9
+Version: 0.9.1
 Contributors: martyspellerberg, mgibbs189
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
@@ -33,7 +33,7 @@ class Address_Geocoder
         $excluded = array( 'attachment', 'revision', 'nav_menu_item' );
         $this->available_post_types = array_diff( $post_types, $excluded );
         $this->options = get_option( 'address_geocoder_options' );
-        
+
         // Set some default options if none are already set
         if( !$this->options ) {
             $this->options = $this->available_post_types;
@@ -155,7 +155,7 @@ class Address_Geocoder
         }
 ?>
 
-<div class="wrap">    
+<div class="wrap">
     <h2><?php _e( 'Address Geocoder' ); ?></h2>
     <form method="post" action="options.php">
         <?php settings_fields( 'address_geocoder_options' ); ?>
@@ -176,7 +176,7 @@ class Address_Geocoder
 	        	<?php $checked = ( 'exclude' != $status ) ? ' checked="checked"' : ''; ?>
 		        <p>
 		            <input type="checkbox" id="geocoder-type-<?php echo $post_type; ?>" name="address_geocoder_options[<?php echo $post_type ?>]" value="enabled" <?php echo $checked; ?> />
-		            <label class="description" for="geocoder-type-<?php echo $post_type; ?>"><?php echo $post_type; ?></label> 
+		            <label class="description" for="geocoder-type-<?php echo $post_type; ?>"><?php echo $post_type; ?></label>
 		        </p>
 			<?php endif; ?>
         <?php endforeach; ?>
@@ -263,5 +263,5 @@ function get_geocode_lng( $post_id ) {
 }
 
 function get_geocode_address( $post_id ) {
-    return get_post_meta( $post_id, 'martygeocoderaddress', true ); 
+    return get_post_meta( $post_id, 'martygeocoderaddress', true );
 }
