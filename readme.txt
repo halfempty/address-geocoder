@@ -2,7 +2,7 @@
 Contributors: martyspellerberg, mgibbs189
 Tags: geocode, location, latitude, longitude, coordinates, google maps, maps
 Requires at least: 4.0
-Tested up to: 4.4.1
+Tested up to: 4.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -49,39 +49,12 @@ For the Address:
 
 == Changelog ==
 
+= 0.9.2 =
+* Minor cleanup
+* Added new icon and banner to wordpress.org plugins page
+
 = 0.9.1 =
 * Tested compatibility against WP 4.4
 
 = 0.9 =
 * A Google Maps API key is now required. Go to Settings > Address Geocoder to set your Google Maps API key.
-
-= 0.8 =
-* Bugfix for settings page
-
-= 0.7 =
-* Bugfix for settings page
-* Ensured WP 3.9 compatibility
-
-= 0.6 =
-* Rewrite using OOP best practices (props @mgibbs189)
-
-= 0.5 =
-* Added `get_geocode_lat()` and `get_geocode_lng()` functions
-
-= 0.4 =
-* Added settings screen, for disabling metabox by post type
-
-= 0.3 =
-* Fixes a bug which caused data to not save
-
-= 0.2 =
-* Added support for all post types
-
-= 0.1 =
-* First released version.
-
-== Upgrade Notice ==
-
-= 0.9 =
-
-Fixes Google's rejection of the API key. A Google Maps API key is now required.
