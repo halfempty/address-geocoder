@@ -107,7 +107,10 @@ class Address_Geocoder
      */
     function add_meta_boxes( $post_type ) {
         if ( in_array( $post_type, $this->available_post_types ) && 'exclude' != $this->options[ $post_type ] ) {
-            add_meta_box( 'martygeocoder', 'Geocoder', array( $this, 'meta_box_html' ), $post_type, 'normal', 'high' );
+            $current_post_type = get_post_type_object( $post_type );
+            $metabox_title = empty( $this->options['meta-box-title'] ) ? $current_post_type->labels->singular_name . ' Location' : $this->options['meta-box-title'];
+
+            add_meta_box( 'martygeocoder', $metabox_title, array( $this, 'meta_box_html' ), $post_type, 'normal', 'high' );
         }
     }
 
@@ -178,6 +181,10 @@ class Address_Geocoder
                 </p>
             <?php endif; ?>
         <?php endforeach; ?>
+
+        <h3>Meta Box Title</h3>
+        <p><input type="input" id="geocoder-meta-box-title" name="address_geocoder_options[meta-box-title]" value="<?php echo empty( $this->options['meta-box-title'] ) ? '' : esc_attr( $this->options['meta-box-title'] ); ?>" /><br>
+        <label class="description" for="geocoder-meta-box-title">Custom Meta Box Title</label></p>
 
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e( 'Save Options' ); ?>" />
