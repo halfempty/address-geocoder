@@ -205,6 +205,11 @@ class Address_Geocoder
                 $input[ $post_type ] = 'exclude';
             }
         }
+
+        if ( isset( $input['meta-box-title'] ) ) {
+            $input['meta-box-title'] = sanitize_text_field( $input['meta-box-title'] );
+        }
+        
         return $input;
     }
 
