@@ -2,15 +2,17 @@
 
     $(function() {
 
-        var map;
-        var latlng;
-        var markersArray = [];
+        var map,
+            latlng,
+            marker,
+            markersArray = [];
 
         setMarker = function(latlng) {
             clearMarkers();
-            var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 map: map,
-                position: latlng
+                position: latlng,
+                draggable: true
             });
             markersArray.push(marker);
         }
@@ -24,6 +26,10 @@
 
         // Trigger geocode
         $(document).on('click', '#geocode', function() {
+            if ($('#martygeocoderlatlng').val() ) {
+                return;
+            }
+            
             var address = $('#martygeocoderaddress').val();
             var geocoder = new google.maps.Geocoder();
 
@@ -47,12 +53,21 @@
         latlng = new google.maps.LatLng(latlng[0], latlng[1]);
 
         map = new google.maps.Map(document.getElementById('geocodepreview'), {
+            zoomcontrol: true,
             mapTypeControl: false,
+            streetViewControl: false,
             zoom: 11,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
         setMarker(latlng);
+
+        //Update Lat/Lng if marker is dragged to new position.
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+            latlng = this.getPosition();
+            $('#martygeocoderlatlng').attr('value', latlng);
+            map.setCenter(latlng);
+        });
     });
 
 })(jQuery);
