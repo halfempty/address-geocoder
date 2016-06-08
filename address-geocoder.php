@@ -68,7 +68,7 @@ class Address_Geocoder
             $apikey = $address_geocoder_options['apikey'];
 
             if ( ! empty( $apikey ) ) {
-                $mapsapi = '//maps.googleapis.com/maps/api/js?key=' . $apikey. '&sensor=false';
+                $mapsapi = '//maps.googleapis.com/maps/api/js?key=' . $apikey;
                 wp_register_script( 'googlemaps', $mapsapi );
                 wp_register_script( 'marty_geocode_js', plugins_url( '/address-geocoder.js', __FILE__ ) );
 
