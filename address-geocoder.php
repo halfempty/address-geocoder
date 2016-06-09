@@ -68,7 +68,7 @@ class Address_Geocoder
             $apikey = $address_geocoder_options['apikey'];
 
             if ( ! empty( $apikey ) ) {
-                $mapsapi = '//maps.googleapis.com/maps/api/js?key=' . $apikey. '&sensor=false';
+                $mapsapi = '//maps.googleapis.com/maps/api/js?key=' . $apikey;
                 wp_register_script( 'googlemaps', $mapsapi );
                 wp_register_script( 'marty_geocode_js', plugins_url( '/address-geocoder.js', __FILE__ ) );
 
@@ -165,9 +165,9 @@ class Address_Geocoder
 
         <p>Address Geocoder requires a Google Maps API Key to work. You can get a free API Key here: <a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">Instructions for obtaining a key.</a></p>
 
-        <?php $apikey = $this->options['apikey']; ?>
+        <?php $apikey = empty( $this->options['apikey'] ) ? '' : $this->options['apikey']; ?>
 
-        <p><input type="input" id="geocoder-apikey" name="address_geocoder_options[apikey]" <?php if ( $apikey && $apikey != '' ) echo 'value="' . $apikey . '"'; ?> /><br />
+        <p><input type="input" id="geocoder-apikey" name="address_geocoder_options[apikey]" value="<?php echo esc_attr( $apikey ); ?>" /><br />
         <label class="description" for="geocoder-apikey">Your API Key</label></p>
 
         <h3>Show Metabox on Post Types</h3>
