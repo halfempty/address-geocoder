@@ -125,7 +125,7 @@ class Address_Geocoder
         $apikey = $address_geocoder_options['apikey'];
         if ( $apikey && $apikey != '' ): ?>
             <div style="overflow:hidden; width:100%">
-                <div id="geocodepreview" style="float:right; width:240px; height:180px; border:1px solid #DFDFDF"></div>
+                <div id="geocodepreview" style="float:right; width:240px; height:240px; border:1px solid #DFDFDF"></div>
                 <div style="margin-right:260px">
                     <p>
                         <label for="martygeocoderaddress">Address</label><br />
