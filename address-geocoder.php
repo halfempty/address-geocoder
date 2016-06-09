@@ -2,7 +2,7 @@
 /*
 Plugin Name: Address Geocoder
 Description: Attach location information to posts
-Version: 0.9.2
+Version: 1.0
 Contributors: martyspellerberg, mgibbs189
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
@@ -154,19 +154,17 @@ class Address_Geocoder
         if ( ! isset( $_REQUEST['settings-updated'] ) ) {
             $_REQUEST['settings-updated'] = false;
         }
+
+        $apikey = empty( $this->options['apikey'] ) ? '' : $this->options['apikey'];
 ?>
 
 <div class="wrap">
-    <h2><?php _e( 'Address Geocoder' ); ?></h2>
+    <h1><?php _e( 'Address Geocoder' ); ?></h1>
     <form method="post" action="options.php">
         <?php settings_fields( 'address_geocoder_options' ); ?>
 
         <h3>Google Maps API Key</h3>
-
         <p>Address Geocoder requires a Google Maps API Key to work. You can get a free API Key here: <a href="https://developers.google.com/maps/documentation/javascript/tutorial#api_key">Instructions for obtaining a key.</a></p>
-
-        <?php $apikey = empty( $this->options['apikey'] ) ? '' : $this->options['apikey']; ?>
-
         <p><input type="input" id="geocoder-apikey" name="address_geocoder_options[apikey]" value="<?php echo esc_attr( $apikey ); ?>" /><br />
         <label class="description" for="geocoder-apikey">Your API Key</label></p>
 

@@ -2,7 +2,7 @@
 Contributors: martyspellerberg, mgibbs189
 Tags: geocode, location, latitude, longitude, coordinates, google maps, maps
 Requires at least: 4.0
-Tested up to: 4.5
+Tested up to: 4.5.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -48,6 +48,11 @@ For the Address:
 3. The settings page
 
 == Changelog ==
+
+= 1.0 =
+* Better meta box handling (props @burkeshartsis)
+* Draggable marker (props @burkeshartsis)
+* Various fixes and improvements
 
 = 0.9.2 =
 * Minor cleanup
