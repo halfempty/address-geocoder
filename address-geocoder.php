@@ -2,7 +2,7 @@
 /*
 Plugin Name: Address Geocoder
 Description: Attach location information to posts
-Version: 1.0
+Version: 1.0.1
 Contributors: martyspellerberg, mgibbs189
 Author: Marty Spellerberg
 Author URI: http://martyspellerberg.com
